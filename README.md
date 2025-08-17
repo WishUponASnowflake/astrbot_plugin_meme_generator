@@ -35,7 +35,7 @@ _✨ 高性能智能表情包生成器 - 让聊天更有趣 ✨_
 cd /path/to/AstrBot/data/plugins
 
 # 克隆项目
-git clone http://127.0.0.1:3000/SodaSizzle/astrbot_plugin_meme_generator
+git clone https://github.com/SodaSizzle/astrbot_plugin_meme_generator
 
 # 安装依赖
 pip install -r astrbot_plugin_meme_generator/requirements.txt
