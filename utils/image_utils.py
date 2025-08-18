@@ -7,7 +7,7 @@ from astrbot.api import logger
 
 class ImageUtils:
     """图片处理工具类"""
-    
+
     @staticmethod
     def compress_image(image: bytes, max_size: int = 512) -> bytes | None:
         """
@@ -40,5 +40,3 @@ class ImageUtils:
         except Exception as e:
             logger.error(f"图片压缩失败: {e}")
             raise ValueError(f"图片压缩失败: {e}")
-    
-

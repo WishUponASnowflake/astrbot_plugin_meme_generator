@@ -14,7 +14,6 @@ from .utils import PermissionUtils
 from .utils.template_loader import template_loader
 
 
-# 动态加载插件元数据从metadata.yaml
 def load_metadata_from_yaml():
     """从metadata.yaml加载插件元数据"""
     try:
@@ -25,6 +24,7 @@ def load_metadata_from_yaml():
     except Exception:
         pass
     return {}
+
 
 _metadata = load_metadata_from_yaml()
 
@@ -77,12 +77,8 @@ class MemeGeneratorPlugin(Star):
                 yield event.plain_result(PermissionUtils.get_plugin_disabled_message())
             return
 
-        # 尝试加载外部模板，如果失败则使用内联模板
-        template_content = template_loader.load_template("meme_help.html")
+        meme_help_tmpl = template_loader.load_template("meme_help.html")
 
-        meme_help_tmpl = template_content
-
-        # 从外部JSON文件加载模板数据
         template_data = template_loader.load_template_data("meme_help.json")
 
         # 如果加载失败，使用默认的空数据
@@ -94,8 +90,8 @@ class MemeGeneratorPlugin(Star):
 
         # 从metadata.yaml加载版本和作者信息
         metadata = load_metadata_from_yaml()
-        template_data["version"] = metadata.get("version", "v1.1.0")
-        template_data["author"] = metadata.get("author", "SodaSizzle")
+        template_data["version"] = metadata.get("version")
+        template_data["author"] = metadata.get("author")
 
         # 使用 html_render 方法渲染模板
         url = await self.html_render(meme_help_tmpl, template_data)

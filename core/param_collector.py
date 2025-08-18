@@ -14,12 +14,12 @@ class ParamCollector:
 
     def __init__(self, network_utils=None):
         self.network_utils = network_utils
-    
+
     async def collect_params(
-        self, 
-        event: AstrMessageEvent, 
-        keyword: str, 
-        meme: Meme
+            self,
+            event: AstrMessageEvent,
+            keyword: str,
+            meme: Meme
     ) -> Tuple[List[MemeImage], List[str], Dict[str, Union[bool, str, int, float]]]:
         """
         收集表情包生成所需的参数
@@ -105,14 +105,14 @@ class ParamCollector:
                 meme_images.append(MemeImage(name, file_content))
 
     async def _process_at_segment(
-        self,
-        seg: Comp.At,
-        event: AstrMessageEvent,
-        self_id: str,
-        target_ids: List[str],
-        target_names: List[str],
-        options: Dict[str, Union[bool, str, int, float]],
-        meme_images: List[MemeImage]
+            self,
+            seg: Comp.At,
+            event: AstrMessageEvent,
+            self_id: str,
+            target_ids: List[str],
+            target_names: List[str],
+            options: Dict[str, Union[bool, str, int, float]],
+            meme_images: List[MemeImage]
     ):
         """处理@组件"""
         seg_qq = str(seg.qq)
@@ -134,13 +134,13 @@ class ParamCollector:
                 texts.append(text)
 
     async def _auto_fill_images(
-        self,
-        event: AstrMessageEvent,
-        send_id: str,
-        self_id: str,
-        sender_name: str,
-        meme_images: List[MemeImage],
-        max_images: int
+            self,
+            event: AstrMessageEvent,
+            send_id: str,
+            self_id: str,
+            sender_name: str,
+            meme_images: List[MemeImage],
+            max_images: int
     ):
         """自动补全图片参数"""
         if self.network_utils and len(meme_images) < max_images:
@@ -153,12 +153,12 @@ class ParamCollector:
         meme_images[:] = meme_images[:max_images]
 
     def _auto_fill_texts(
-        self,
-        texts: List[str],
-        target_names: List[str],
-        default_texts: List[str],
-        min_texts: int,
-        max_texts: int
+            self,
+            texts: List[str],
+            target_names: List[str],
+            default_texts: List[str],
+            min_texts: int,
+            max_texts: int
     ):
         """自动补全文本参数"""
         if len(texts) < min_texts and target_names:

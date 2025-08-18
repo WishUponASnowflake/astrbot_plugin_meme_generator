@@ -19,14 +19,14 @@ from astrbot.api import logger
 
 class ImageGenerator:
     """图片生成器"""
-    
+
     @staticmethod
     async def generate_image(
-        meme: Meme,
-        meme_images: List[MemeImage],
-        texts: List[str],
-        options: Dict[str, Union[bool, str, int, float]],
-        timeout: int = 30
+            meme: Meme,
+            meme_images: List[MemeImage],
+            texts: List[str],
+            options: Dict[str, Union[bool, str, int, float]],
+            timeout: int = 30
     ) -> bytes:
         """
         调用生成引擎创建表情包图片

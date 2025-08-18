@@ -1,5 +1,3 @@
-"""缓存管理器模块"""
-
 import asyncio
 import time
 from typing import Optional

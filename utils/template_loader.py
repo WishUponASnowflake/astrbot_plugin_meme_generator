@@ -19,8 +19,8 @@ class TemplateLoader:
         """
         self.plugin_dir = Path(plugin_dir)
         self.static_dir = self.plugin_dir / "static"
-        self.html_dir = self.static_dir / "html"  # HTML文件现在在static/html目录
-        self.data_dir = self.static_dir / "data"  # JSON数据文件现在在static/data目录
+        self.html_dir = self.static_dir / "html"
+        self.data_dir = self.static_dir / "data"
         self.config_dir = self.plugin_dir / "config"
     
     def load_template(self, template_name: str) -> Optional[str]:
@@ -45,7 +45,6 @@ class TemplateLoader:
             else:
                 return None
         except Exception as e:
-            # 可以在这里添加日志记录
             return None
     
     def _process_static_paths(self, content: str) -> str:
@@ -58,8 +57,6 @@ class TemplateLoader:
         Returns:
             处理后的HTML内容
         """
-        # 将相对路径的CSS引用转换为内联样式
-        # 这样可以避免路径问题，因为html_render可能不支持外部文件引用
 
         # 处理帮助页面CSS
         if '../css/meme_help.css' in content:

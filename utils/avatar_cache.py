@@ -103,7 +103,7 @@ class AvatarCache:
         except (OSError, ValueError):
             # 检测失败时默认使用.jpg
             return '.jpg'
-    
+
     def get_avatar(self, user_id: str) -> Optional[bytes]:
         """
         从缓存获取头像
@@ -151,7 +151,7 @@ class AvatarCache:
             logger.error(f"读取头像缓存失败: {e}")
             self._remove_cache_file(cache_key)
             return None
-    
+
     def set_avatar(self, user_id: str, avatar_data: bytes):
         """
         设置头像缓存
@@ -215,7 +215,7 @@ class AvatarCache:
         """
         cache_key = self.get_cache_key(user_id)
         self._remove_cache_file(cache_key)
-    
+
     def clear_expired_cache(self):
         """清理过期的缓存"""
         if not self.enable_cache:
@@ -231,7 +231,7 @@ class AvatarCache:
 
         for key in expired_keys:
             self._remove_cache_file(key)
-    
+
     def clear_all_cache(self):
         """清空所有缓存"""
         if not self.enable_cache:
@@ -271,7 +271,7 @@ class AvatarCache:
             "cache_size_bytes": total_size,
             "cache_dir": str(self.cache_dir)
         }
-    
+
     def update_settings(self, cache_expire_hours: int, enable_cache: bool):
         """
         更新缓存设置

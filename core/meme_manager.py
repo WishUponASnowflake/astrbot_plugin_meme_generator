@@ -85,7 +85,6 @@ class MemeManager:
             properties = MemeProperties(disabled=False, hot=False, new=False)
             meme_properties[meme.key] = properties
 
-        # 使用 asyncio.to_thread 来运行同步函数
         output: bytes | None = await asyncio.to_thread(
             render_meme_list,  # type: ignore
             meme_properties=meme_properties,

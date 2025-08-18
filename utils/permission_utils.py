@@ -22,25 +22,11 @@ class PermissionUtils:
             if hasattr(event, 'is_admin') and callable(event.is_admin):
                 return event.is_admin()
 
-            # 如果框架没有提供is_admin方法，尝试其他方式
-            # 可以通过配置文件中的管理员列表来检查
-            # 这里可以添加更多的Bot管理员检查逻辑
-
             return False
 
         except Exception:
-            # 权限检查出错时，为了安全起见返回False
-            return False
-    
-    @staticmethod
-    def get_permission_denied_message() -> str:
-        """
-        获取权限不足的提示消息
 
-        Returns:
-            权限不足提示
-        """
-        return "❌ 权限不足，此命令仅限Bot管理员使用"
+            return False
     
     @staticmethod
     def get_plugin_disabled_message() -> str:
