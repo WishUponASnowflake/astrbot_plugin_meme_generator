@@ -5,7 +5,7 @@ from astrbot.core.platform import AstrMessageEvent
 
 class PlatformUtils:
     """平台适配工具类"""
-    
+
     @staticmethod
     async def get_user_extra_info(event: AstrMessageEvent, target_id: str):
         """
@@ -35,7 +35,7 @@ class PlatformUtils:
                 return None
 
         return None
-    
+
     @staticmethod
     def is_platform_supported(platform_name: str) -> bool:
         """

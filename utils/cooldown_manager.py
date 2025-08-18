@@ -1,5 +1,3 @@
-"""用户冷却管理模块"""
-
 import time
 from typing import Dict
 
