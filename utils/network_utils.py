@@ -3,7 +3,7 @@
 import random
 import aiohttp
 from typing import Optional
-from astrbot import logger
+from astrbot.api import logger
 from .avatar_cache import AvatarCache
 
 
@@ -12,7 +12,7 @@ class NetworkUtils:
 
     def __init__(self, avatar_cache: Optional[AvatarCache] = None):
         self.avatar_cache = avatar_cache
-    
+
     async def download_image(self, url: str) -> bytes | None:
         """
         下载图片
@@ -32,7 +32,7 @@ class NetworkUtils:
         except Exception as e:
             logger.error(f"图片下载失败: {e}")
             return None
-    
+
     async def get_avatar(self, user_id: str) -> bytes | None:
         """
         下载用户头像(支持缓存)

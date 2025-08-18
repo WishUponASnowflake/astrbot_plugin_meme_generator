@@ -9,7 +9,7 @@ class AdminHandlers:
 
     def __init__(self, config: MemeConfig):
         self.config = config
-    
+
     async def handle_enable_plugin(self, event: AstrMessageEvent):
         """处理启用插件命令"""
         # 尝试启用插件
