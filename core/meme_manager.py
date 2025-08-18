@@ -1,12 +1,12 @@
 """表情包管理器模块"""
 
 import asyncio
+from pathlib import Path
 from typing import List, Optional
 from meme_generator.tools import MemeProperties, MemeSortBy, render_meme_list
 from meme_generator.resources import check_resources_in_background
 from astrbot.api import logger
 from astrbot.core.platform import AstrMessageEvent
-from astrbot.api.star import StarTools
 import astrbot.core.message.components as Comp
 
 from .template_manager import TemplateManager
@@ -19,16 +19,19 @@ from ..utils import ImageUtils, CooldownManager, AvatarCache, NetworkUtils, Cach
 class MemeManager:
     """表情包管理器 - 核心业务逻辑"""
     
-    def __init__(self, config: MemeConfig):
+    def __init__(self, config: MemeConfig, data_dir: str = None):
         self.config = config
         self.template_manager = TemplateManager()
         self.image_generator = ImageGenerator()
         self.cooldown_manager = CooldownManager(config.cooldown_seconds)
 
         # 初始化头像缓存和网络工具
-        # 使用框架提供的数据目录
-        data_dir = StarTools.get_data_dir()
-        cache_dir = data_dir / "cache" / "meme_avatars"
+        # 使用传入的数据目录，如果没有则使用默认路径
+        if data_dir:
+            cache_dir = Path(data_dir) / "cache" / "meme_avatars"
+        else:
+            cache_dir = Path("data/cache/meme_avatars")  # 默认路径
+
         self.avatar_cache = AvatarCache(
             cache_expire_hours=config.cache_expire_hours,
             enable_cache=config.enable_avatar_cache,

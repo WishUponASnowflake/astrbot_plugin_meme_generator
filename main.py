@@ -6,6 +6,7 @@ from astrbot.core import AstrBotConfig
 from astrbot.core.platform import AstrMessageEvent
 from astrbot.core.star.filter.event_message_type import EventMessageType
 from astrbot.api import logger
+from astrbot.api.star import StarTools
 
 from .config import MemeConfig
 from .core import MemeManager
@@ -43,8 +44,12 @@ class MemeGeneratorPlugin(Star):
         # 初始化配置管理器
         self.meme_config = MemeConfig(config)
 
+        # 获取插件数据目录
+
+        data_dir = str(StarTools.get_data_dir())
+
         # 初始化核心管理器
-        self.meme_manager = MemeManager(self.meme_config)
+        self.meme_manager = MemeManager(self.meme_config, data_dir)
 
         # 初始化命令处理器
         self.template_handlers = TemplateHandlers(self.meme_manager, self.meme_config)
