@@ -14,7 +14,7 @@ from meme_generator import (
     TextOverLength,
 )
 from meme_generator import Image as MemeImage
-from astrbot import logger
+from astrbot.api import logger
 
 
 class ImageGenerator:
@@ -42,7 +42,7 @@ class ImageGenerator:
             生成的图片字节数据
 
         Raises:
-            NotImplementedError: 生成失败时抛出
+            RuntimeError: 生成失败时抛出
             asyncio.TimeoutError: 生成超时时抛出
         """
         try:
@@ -53,7 +53,7 @@ class ImageGenerator:
             )
         except asyncio.TimeoutError:
             logger.error(f"表情包生成超时({timeout}秒)")
-            raise NotImplementedError("表情包生成超时")
+            raise RuntimeError("表情包生成超时")
 
         # 处理各种错误情况
         if result is None:
@@ -88,6 +88,6 @@ class ImageGenerator:
             logger.error(result.feedback)
 
         if not isinstance(result, bytes):
-            raise NotImplementedError("表情包生成失败")
+            raise RuntimeError("表情包生成失败")
 
         return result

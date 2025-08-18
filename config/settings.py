@@ -1,5 +1,3 @@
-"""表情包生成器配置管理模块"""
-
 from typing import List
 from astrbot.core import AstrBotConfig
 
@@ -14,17 +12,11 @@ class MemeConfig:
     def _load_config(self):
         """加载配置"""
         self.enable_plugin: bool = self.config.get("enable_plugin", True)
-        self.disabled_templates: List[str] = self.config.get("disabled_templates", [])
-
-
-
-
-
-        # 新增配置项
         self.generation_timeout: int = self.config.get("generation_timeout", 30)
         self.cooldown_seconds: int = self.config.get("cooldown_seconds", 3)
         self.enable_avatar_cache: bool = self.config.get("enable_avatar_cache", True)
         self.cache_expire_hours: int = self.config.get("cache_expire_hours", 24)
+        self.disabled_templates: List[str] = self.config.get("disabled_templates", [])
     
     def save_config(self):
         """保存配置 - 只写入改动的键，避免循环引用"""

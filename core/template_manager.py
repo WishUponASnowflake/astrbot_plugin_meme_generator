@@ -3,7 +3,7 @@
 import asyncio
 from typing import List, Optional
 from meme_generator import Meme, get_memes
-from astrbot import logger
+from astrbot.api import logger
 
 
 class TemplateManager:

@@ -4,8 +4,9 @@ import asyncio
 from typing import List, Optional
 from meme_generator.tools import MemeProperties, MemeSortBy, render_meme_list
 from meme_generator.resources import check_resources_in_background
-from astrbot import logger
+from astrbot.api import logger
 from astrbot.core.platform import AstrMessageEvent
+from astrbot.api.star import StarTools
 import astrbot.core.message.components as Comp
 
 from .template_manager import TemplateManager
@@ -25,10 +26,13 @@ class MemeManager:
         self.cooldown_manager = CooldownManager(config.cooldown_seconds)
 
         # 初始化头像缓存和网络工具
+        # 使用框架提供的数据目录
+        data_dir = StarTools.get_data_dir()
+        cache_dir = data_dir / "cache" / "meme_avatars"
         self.avatar_cache = AvatarCache(
             cache_expire_hours=config.cache_expire_hours,
             enable_cache=config.enable_avatar_cache,
-            cache_dir="data/cache/meme_avatars"  # 存储到外部data目录
+            cache_dir=str(cache_dir)
         )
         self.network_utils = NetworkUtils(self.avatar_cache)
 

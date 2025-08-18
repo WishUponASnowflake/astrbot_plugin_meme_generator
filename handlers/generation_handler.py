@@ -2,7 +2,7 @@
 
 from astrbot.core.platform import AstrMessageEvent
 import astrbot.core.message.components as Comp
-from astrbot import logger
+from astrbot.api import logger
 from ..core import MemeManager
 
 
@@ -34,4 +34,5 @@ class GenerationHandler:
             user_id = event.get_sender_id()
             message_str = event.get_message_str()
             logger.error(f"表情包生成异常 - 用户: {user_id}, 消息: {message_str[:50]}{'...' if len(message_str) > 50 else ''}, 错误: {e}")
-            pass  # 静默失败，不响应用户
+            # 对于严重错误，可以考虑给用户反馈
+            # 这里保持静默失败的行为，但记录详细日志用于调试

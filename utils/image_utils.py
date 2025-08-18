@@ -2,7 +2,7 @@
 
 import io
 from PIL import Image
-from astrbot import logger
+from astrbot.api import logger
 
 
 class ImageUtils:

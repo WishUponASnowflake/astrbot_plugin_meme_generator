@@ -7,7 +7,7 @@ import hashlib
 import pickle
 from pathlib import Path
 from typing import Dict, Optional, Tuple
-from astrbot import logger
+from astrbot.api import logger
 
 
 class AvatarCache:
@@ -34,7 +34,7 @@ class AvatarCache:
         try:
             with open(self.metadata_file, 'r', encoding='utf-8') as f:
                 return json.load(f)
-        except Exception as e:
+        except (FileNotFoundError, json.JSONDecodeError, OSError) as e:
             logger.warning(f"加载头像缓存元数据失败: {e}")
             return {}
 
@@ -46,7 +46,7 @@ class AvatarCache:
         try:
             with open(self.metadata_file, 'w', encoding='utf-8') as f:
                 json.dump(self._metadata, f, ensure_ascii=False, indent=2)
-        except Exception as e:
+        except (OSError, json.JSONEncodeError) as e:
             logger.error(f"保存头像缓存元数据失败: {e}")
 
     def get_cache_key(self, user_id: str) -> str:
@@ -100,7 +100,7 @@ class AvatarCache:
             else:
                 return '.jpg'
 
-        except Exception:
+        except (OSError, ValueError):
             # 检测失败时默认使用.jpg
             return '.jpg'
     
@@ -147,7 +147,7 @@ class AvatarCache:
         try:
             with open(cache_file, 'rb') as f:
                 return f.read()
-        except Exception as e:
+        except (OSError, IOError) as e:
             logger.error(f"读取头像缓存失败: {e}")
             self._remove_cache_file(cache_key)
             return None
@@ -182,7 +182,7 @@ class AvatarCache:
             self._metadata[cache_key] = current_time
             self._save_metadata()
 
-        except Exception as e:
+        except (OSError, IOError) as e:
             logger.error(f"保存头像缓存失败: {e}")
             # 清理可能的部分文件
             if cache_file.exists():
@@ -261,7 +261,7 @@ class AvatarCache:
                 for file_path in self.cache_dir.glob(pattern):
                     try:
                         total_size += file_path.stat().st_size
-                    except:
+                    except OSError:
                         pass
 
         return {

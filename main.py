@@ -5,6 +5,7 @@ from astrbot.api.star import Context, Star, register
 from astrbot.core import AstrBotConfig
 from astrbot.core.platform import AstrMessageEvent
 from astrbot.core.star.filter.event_message_type import EventMessageType
+from astrbot.api import logger
 
 from .config import MemeConfig
 from .core import MemeManager
@@ -24,7 +25,6 @@ def load_metadata_from_yaml():
     except Exception:
         pass
     return {}
-
 
 _metadata = load_metadata_from_yaml()
 
@@ -65,8 +65,7 @@ class MemeGeneratorPlugin(Star):
         try:
             # 停止缓存清理任务
             await self.meme_manager.cache_manager.stop_cleanup_task()
-        except Exception as e:
-            from astrbot import logger
+        except (AttributeError, RuntimeError) as e:
             logger.error(f"清理缓存管理器时出错: {e}")
 
     @filter.command("表情帮助", alias={"meme帮助", "meme菜单"})
@@ -197,7 +196,7 @@ class MemeGeneratorPlugin(Star):
             total_templates = len(all_memes)
             all_keywords = await self.meme_manager.template_manager.get_all_keywords()
             total_keywords = len(all_keywords)
-        except:
+        except Exception:
             pass
 
         # 尝试加载外部模板

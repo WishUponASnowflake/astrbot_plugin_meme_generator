@@ -3,7 +3,7 @@
 import asyncio
 import time
 from typing import Optional
-from astrbot import logger
+from astrbot.api import logger
 from .avatar_cache import AvatarCache
 
 
