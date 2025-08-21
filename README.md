@@ -8,7 +8,7 @@ _✨ 高性能智能表情包生成器 - 让聊天更有趣 ✨_
 
 ![Version](https://img.shields.io/badge/version-v1.0.0-blue?style=for-the-badge)
 ![Python](https://img.shields.io/badge/python-3.11+-blue?style=for-the-badge)
-![License](https://img.shields.io/badge/license-Apache%202.0-green?style=for-the-badge)
+![License](https://img.shields.io/badge/license-GNU%20GPL%20v3-green?style=for-the-badge)
 ![AstrBot](https://img.shields.io/badge/AstrBot-Plugin-purple?style=for-the-badge)
 
 </div>
@@ -32,7 +32,7 @@ _✨ 高性能智能表情包生成器 - 让聊天更有趣 ✨_
 
 ```bash
 # 进入插件目录
-cd /path/to/AstrBot/data/plugins
+cd astrBot/data/plugins
 
 # 克隆项目
 git clone https://github.com/SodaSizzle/astrbot_plugin_meme_generator
@@ -41,18 +41,64 @@ git clone https://github.com/SodaSizzle/astrbot_plugin_meme_generator
 pip install -r astrbot_plugin_meme_generator/requirements.txt
 ```
 
-> 💡 **提示**: 启动需要几下载资源，图片模板缺失导致功能无法使用，请耐心等待。
+### 🚀 资源初始化
+
+> 💡 **重要提示**: 首次启动需要下载表情包模板资源，请耐心等待。
+
+#### 自动下载（推荐）
+插件会在首次启动时自动下载所需资源到用户目录：
+- **Windows**: `C:\Users\{用户名}\.meme_generator\`
+- **Linux**: `~/.meme_generator/`
+
+#### 手动下载（网络较慢时使用）
+
+如果自动下载失败或速度过慢，可以手动下载资源包：
+
+**下载地址**: https://github.com/SodaSizzle/astrbot_plugin_meme_generator/releases/tag/v1.0.0
+
+##### Windows 系统
+```bash
+# 1. 下载 resources.zip
+# 2. 解压到 C:\Users\{你的用户名}\.meme_generator\ 目录下
+```
+
+##### Linux 系统
+```bash
+# 1. 下载 resources.tar.gz
+# 2. 解压到指定目录
+tar -zxvf resources.tar.gz -C ~/.meme_generator/
+```
+
+##### Docker 环境
+```bash
+# 1. 拷贝 resources.tar.gz 到容器内指定目录
+docker cp resources.tar.gz astrbot:/root/.meme_generator/
+
+# 2. 解压到指定目录
+docker exec -it astrbot tar -zxvf /root/.meme_generator/resources.tar.gz -C /
+
+# 3. 启动 AstrBot
+docker restart astrbot 
+```
 
 ### ⚠️ 字体问题解决
 
-如果遇到字体相关问题，请按以下步骤解决：
+如果遇到表情包中文字显示异常（乱码、方块等），请按以下步骤解决：
 
-**Linux 系统字体异常**：
+#### Linux 系统(docker)
 ```bash
-# 设置系统语言为英文
 export LANG=en_US.UTF-8
+# 重启 AstrBot ( docker restart astrbot )
 ```
 
+#### 验证安装
+资源下载完成后，目录结构应该如下：
+```
+.meme_generator/
+└── resources/
+    ├── fonts/          # 字体文件
+    └── images/         # 图片资源
+```
 
 ## ⚙️ 配置说明
 
@@ -146,21 +192,6 @@ _✨ 表情状态 - 查看插件详细运行状态和统计信息 ✨_
 - **[nonebot-plugin-memes](https://github.com/MemeCrafters/nonebot-plugin-memes)** - 模板资源和算法参考
 - **AstrBot** - 机器人框架和平台适配
 
-### 架构特点
-
-- **异步处理** - 全异步设计，支持高并发
-- **模块化设计** - 核心功能模块化，易于维护和扩展
-- **智能缓存** - 多层缓存机制，优化性能
-- **错误恢复** - 完善的异常处理和自动恢复机制
-
-
-## 📄 许可证
-
-本项目采用 Apache 2.0 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
-
-## 🤝 贡献
-
-欢迎提交 Issues 和 Pull Requests！
 
 ## ❤️ 致谢
 
