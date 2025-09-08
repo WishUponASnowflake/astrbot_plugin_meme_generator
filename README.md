@@ -99,6 +99,41 @@ export LANG=en_US.UTF-8
     ├── fonts/          # 字体文件
     └── images/         # 图片资源
 ```
+## 🎨 添加额外资源
+
+> 📖 **参考文档**: [加载其他表情 - meme-generator-rs Wiki](https://github.com/MemeCrafters/meme-generator-rs/wiki/%E5%8A%A0%E8%BD%BD%E5%85%B6%E4%BB%96%E8%A1%A8%E6%83%85)
+
+如果希望加载非本仓库内置的表情包，请按照以下步骤操作：
+
+### 📋 配置步骤
+
+#### 1️⃣ 启用外部表情包加载
+在 [配置文件](https://github.com/MemeCrafters/meme-generator-rs/wiki/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6) 中将 `load_external_memes` 设置为 `true`
+
+#### 2️⃣ 添加动态链接库
+将其他表情仓库编译出的动态链接库放置于 `$MEME_HOME/libraries` 文件夹下
+
+> 💾 **下载地址**: [meme-generator-contrib-rs Actions](https://github.com/MemeCrafters/meme-generator-contrib-rs/actions/runs/16098581677)
+
+#### 3️⃣ 添加资源文件
+将表情需要的图片/字体放置于 `$MEME_HOME/resources` 文件夹下
+
+> 📁 **资源示例**: [contrib-rs/resources/images](https://github.com/MemeCrafters/meme-generator-contrib-rs/tree/main/resources/images)
+
+### 🐛 常见问题解决
+
+#### Fontconfig 错误修复
+如遇 `Fontconfig error: Cannot load default config file` 错误，请执行以下命令并重启：
+
+```bash
+# 更新包管理器并安装字体配置
+apt update && apt install -y fontconfig fonts-dejavu-core
+
+# 重建字体缓存
+fc-cache -fv
+```
+
+> 💡 **提示**: `$MEME_HOME` 即 `.meme_generator` 目录。Docker 用户请自行复制到容器中操作。
 
 ## ⚙️ 配置说明
 
